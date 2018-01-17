@@ -1,0 +1,9 @@
+<div>
+	<label>SpreadsheetID:
+		<input [(ngModel)]="spreadsheetId" placeholder="Spreadshet ID">
+		<button (click)="this.sendId()">Enviar</button>
+	</label>
+</div>
+<div *ngIf="postResponse">
+	<h4>{{postResponse}}</h4>
+</div>
