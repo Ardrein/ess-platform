@@ -20,12 +20,12 @@ router.post('/spreadsheet', (req,res) =>{
 				res.status(200).send({
 				message: 'Datos correctos',
 				status: '200',
-				datos: data
+				data: data
 			});
 		});
 
 	}, function errorCallback(){
-		res.status(200).send({
+		res.status(404).send({
 			message:'Datos erroneos',
 			status: '404'
 		});

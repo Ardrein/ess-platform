@@ -34,15 +34,15 @@ exports.getInfoSpreadsheet = function (doc, successCallback, errorCallback){
 //dentro de @info la variable worksheets contiene las hojas del documento
 //dentro de las worksheets, la variable title contiene el nombre de dicha hoja
 exports.readSpreadsheets = function(info, sendData){
-	var totalWorksheets = info.worksheets.length;
-	var model = {};   //variable para almacenar los indicadores y las variables
+	let totalWorksheets = info.worksheets.length;
+	let model = {};   //variable para almacenar los indicadores y las variables
 	model.variables = [];
 
 	if(totalWorksheets>0){
 		//variables: name, label, type, value,
 		//indicadores: name, label, type, formula
 
-		var sheet = info.worksheets[0]; //hoja de variables
+		let sheet = info.worksheets[0]; //hoja de variables
 
 		//ejecucion de las funciones para leer las diferentes hojas del documento
 		//como son funciones asincronas, se debe esperar a que terminen para poder devolver la informacion
@@ -85,19 +85,25 @@ exports.readSpreadsheets = function(info, sendData){
 				});
 			
 		}, function setIndicators(step){
-			for(let i=1;i< totalWorksheets;i++){
+			let totalTimesIterate = totalWorksheets-1;
+			let j = 1;
 
-				let indicatorNumber = "Indicators"+i;//llave para agregar al objeto model
+
+			//iteracion por cada hoja
+			async.times(totalTimesIterate, function(n,next){
+				let indicatorNumber = "indicator"+j;//llave para agregar al objeto model
 				model[indicatorNumber] = [];
 
-				sheet = info.worksheets[i];	//hoja de calculo siendo leida actualmente
+				sheet = info.worksheets[j];	//hoja de calculo siendo leida actualmente
 
 				sheet.getCells(function(err,cells){
-					let cell;
-					let indicator; 				
+					let indicator;
+					let cell;		
 
+					
 					for(let i=0;i<cells.length;i++){
-
+						
+						
 						cell = cells[i];				//celda actual
 
 						if(cell.row != 1){				//la primera fila son cabeceras de documento
@@ -106,7 +112,7 @@ exports.readSpreadsheets = function(info, sendData){
 							switch(cell.col){
 								case 1: 
 									indicator = {name:'', label:'', type:'', formula:''}; 
-									model[indicatorNumber].push(indicator);					   
+									model[indicatorNumber].push(indicator);	
 									indicator.name = cell.value;						   
 									break;
 								case 2:	 
@@ -116,15 +122,27 @@ exports.readSpreadsheets = function(info, sendData){
 									indicator.type = cell.value;
 									break;
 								case 4:
-									indicator.formula = cell.value;
+									indicator.formula = cell.value;									
 									break;
 								}
 							}
 					}
 
-					step();//fin funcion
+					next();//solo se itera la siguiente hoja cuando se termine con la hoja actual
+							//y se procede haciendo el llamado al callback			
 				});
-			}
+
+				j++;
+			}, function(err){
+
+				step();//fin funcion
+			});
+			
+
+				
+				
+			
+			
 		}], function(err){
 			sendData(model);
 		});
@@ -134,106 +152,3 @@ exports.readSpreadsheets = function(info, sendData){
 
 };
 
-
-
-
-
-
-/*<?php
-
-
-	function cargarDocumento($nombreArchivo){
-
-		try {
-			$inputFileType = PHPExcel_IOFactory::identify($nombreArchivo);
-			$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-			$objPHPExcel = $objReader->load($nombreArchivo);
-
-		} catch (Exception $e) {
-			die('Error loading file "' . pathinfo($nombreArchivo, PATHINFO_BASENAME) . '": ' . 
-				$e->getMessage());
-		}
-
-		$worksheets = $objPHPExcel->getWorksheetIterator();
-
-		//hojas de calculo
-		foreach ($worksheets as $worksheet) {
-  			//filas y columnas de la hoja
-			$highestRow = $worksheet->getHighestRow();
-			$highestColumn = $worksheet->getHighestColumn();
-
-			//cabeceras
-			if($worksheet->getTitle() == "variables"){
-				$this->variablesHeader =  $worksheet->rangeToArray('A1:' . $highestColumn . '1', 
-					null, true, false)[0];
-			}else{
-				$this->indicadoresHeader =  $worksheet->rangeToArray('A1:' . $highestColumn . '1', 
-					null, true, false)[0];
-				$this->indicadoresHeader[] = "variables";
-			}
-
-			//recorrido por las filas de la hoja
-			for ($row = 2; $row <= $highestRow; $row++) { 
-				$rowData = $worksheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, 
-					null, true, false)[0];
-
-
-				if($worksheet->getTitle() == "variables"){
-					$variable = array();
-					for ($i=0; $i <count($this->variablesHeader) ; $i++) { 
-						$variable[$this->variablesHeader[$i]] = $rowData[$i];
-					}
-					if(count($variable)<4){
-						$variable['Value'] = '';
-					}
-
-					$this->variables[] = $variable;
-				}else{
-					$indicador = array();
-					$rowData[] = array();
-					for ($i=0; $i <count($this->indicadoresHeader) ; $i++) { 
-						$indicador[$this->indicadoresHeader[$i]] = $rowData[$i];
-					}
-					$indicador['Formula2'] = $indicador['Formula'] ;
-
-					$this->indicadores[] = $indicador;
-				}
-
-			}
-		}
-
-	}
-
-	function asignarVariables(){
-		for($i = 0; $i<count($this->indicadores); $i++){
-			foreach($this->variables as $variable){
-				//if(preg_match('/^'.$variable['Name'].'$|^'.$variable['Name'].'(\W)|(\W)'.
-					//$variable['Name'].'(\W)|(\W)'.$variable['Name'].'$/',$this->indicadores[$i]['Formula'])){
-				if(preg_match('/\b'.$variable['Name'].'\b/u',$this->indicadores[$i]['Formula'])){
-					$this->indicadores[$i]['variables'][] = $variable;
-					$this->indicadores[$i]['labels'][] = $variable['Name'];
-					$this->indicadores[$i]['values'][] = $variable['Value'];
-				}
-			}
-		}
-
-		return $this->indicadores;
-	}
-
-
-	function calcularFormula($formula){
-		$objPHPExcel = new PHPExcel(); 
-		$resultado = '';
-		try{
-			$resultado = PHPExcel_Calculation::getInstance($objPHPExcel)->calculateFormula($formula, 'A1', $objPHPExcel->getActiveSheet()->getCell('A1'));
-		}catch(Exception $e){
-			echo $e->getMessage();
-		}
-		
-
-		return $resultado;
-	}
-
-}
-
-?>*/

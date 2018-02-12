@@ -1,4 +1,4 @@
-.variable{
+.indicator{
 	display: table;
 	padding: 5px 2px 15px 10px;
 	margin: 2px;
@@ -8,19 +8,19 @@
 	border: solid 1px;
 }
 
-.variable label{
+.indicator label{
 	display: table;
 	width: 100%;
 	padding: 2px;
 }
 
-.variable input, textarea{
+.indicator input, textarea{
 	width: 85%;
 	margin-left: 10%;
 	margin-right: 5%;
 	display: table-cell;
 }
 
-.variable textarea{
+.indicator textarea{
 	resize: vertical;
 }

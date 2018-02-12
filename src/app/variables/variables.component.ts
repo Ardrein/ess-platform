@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+
 
 @Component({
-  selector: 'app-variables',
-  templateUrl: './variables.component.html',
-  styleUrls: ['./variables.component.css']
+	selector: 'app-variables',
+	templateUrl: './variables.component.html',
+	styleUrls: ['./variables.component.css']
 })
 export class VariablesComponent implements OnInit {
 
-  constructor() { }
+	@Input() variables;
 
-  ngOnInit() {
-  }
+	constructor() {
+		
+	}
+
+	ngOnInit() {  	
+	
+	}	
 
 }
+
+

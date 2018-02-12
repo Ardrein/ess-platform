@@ -1,0 +1,12 @@
+<div class="container clear">
+	<div class="variables">
+		<app-variables [variables]="variables"></app-variables>
+	</div>
+	<div class ="indicators">
+		<app-indicators [indicatorsLists]="indicatorsLists"></app-indicators>
+	</div>
+</div>
+<div class="nextStep">
+	<button class="back">Back</button>
+	<button class="next"(click)="this.assignData()">Next</button>
+</div>

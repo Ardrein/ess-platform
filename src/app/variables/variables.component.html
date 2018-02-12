@@ -1,3 +1,15 @@
-<p>
-  variables works!
-</p>
+
+	<div *ngFor="let variable of variables" class="variable">
+		<label>Name: 
+			<input [(ngModel)]="variable.name" placeHolder="Name">
+		</label>
+		<label>Label: 
+			<textarea [(ngModel)]="variable.label" placeHolder="Label" rows="4"></textarea>
+		</label>
+		<label>Type: 
+			<input [(ngModel)]="variable.type" placeHolder=" Type">
+		</label>
+		<label>Value: 
+			<input [(ngModel)]="variable.value" placeHolder="Value">
+		</label>
+	</div>

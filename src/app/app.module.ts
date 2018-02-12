@@ -7,16 +7,24 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
 import { SpreadsheetsService } from './spreadsheets.service';
-import { VariablesComponent } from './variables/variables.component';
 import { IndicatorsComponent } from './indicators/indicators.component';
+import { VariablesComponent } from './variables/variables.component';
+import { ModeloComponent } from './modelo/modelo.component';
+import { IndicatorTabComponent } from './indicator-tab/indicator-tab.component';
+import { PreviewComponent } from './preview/preview.component';
+import { PreviewModelService } from './preview-model.service';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SpreadsheetComponent,
+    IndicatorsComponent,
     VariablesComponent,
-    IndicatorsComponent
+    ModeloComponent,
+    IndicatorTabComponent,
+    PreviewComponent    
   ],
   imports: [
     BrowserModule,
@@ -24,7 +32,7 @@ import { IndicatorsComponent } from './indicators/indicators.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [SpreadsheetsService],
+  providers: [SpreadsheetsService, PreviewModelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

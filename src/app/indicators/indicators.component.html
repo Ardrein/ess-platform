@@ -1,3 +1,7 @@
-<p>
-  indicators works!
-</p>
+<ul class="nav">
+	<li *ngFor="let tab of indicatorTabs" (click)="selectTab(tab)" [class.active]="tab.active">
+		<a>{{tab.title}}</a></li>	
+</ul>
+<div *ngFor ="let indicators of indicatorsLists; let i = index " class="tab">
+	<app-indicator-tab [title]="i+1" [indicators]="indicators"></app-indicator-tab>
+</div>

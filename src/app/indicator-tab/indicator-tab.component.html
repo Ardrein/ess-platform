@@ -1,0 +1,16 @@
+<div [hidden]="!active">
+	<div *ngFor="let indicator of indicators" class="indicator">
+		<label>Name: 
+			<input [(ngModel)]="indicator.name" placeHolder="Name">
+		</label>
+		<label>Label: 
+			<textarea [(ngModel)]="indicator.label" placeHolder="Label" rows="4"></textarea>
+		</label>
+		<label>Type: 
+			<input [(ngModel)]="indicator.type" placeHolder=" Type">
+		</label>
+		<label>Formula: 
+			<input [(ngModel)]="indicator.formula" placeHolder="Formula">
+		</label>
+	</div>
+</div>
