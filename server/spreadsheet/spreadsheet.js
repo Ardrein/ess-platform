@@ -1,5 +1,10 @@
-const spreadsheet = require('google-spreadsheet'); //modulo de node para leer hojas de calculo
-const async = require('async');					  //modulo de node para ejecutar funciones asincronicas
+var spreadsheet = require('google-spreadsheet'); //modulo de node para leer hojas de calculo
+var async = require('async');					  //modulo de node para ejecutar funciones asincronicas
+//Modelos de la base de datos
+var mongoose = require('mongoose');
+var VariableModel = require('../models/variable.model');
+var IndicatorModel = require('../models/indicator.model');
+
 var exports = module.exports = {};
 
 //funcion para crear una nueva hoja de calculo
@@ -64,7 +69,7 @@ exports.readSpreadsheets = function(info, sendData){
 													//name, label, type, value
 							switch(cell.col){
 								case 1: 
-									variable = {name:'', label:'', type:'', value:''}; //creacion del objeto a agregar
+									variable =  new VariableModel();//{name:'', label:'', type:'', value:''}; //creacion del objeto a agregar
 									model.variables.push(variable);					   //agrega el objeto al arreglo
 									variable.name = cell.value;						   // y se prosigue con la modificacion
 									break;
@@ -111,7 +116,7 @@ exports.readSpreadsheets = function(info, sendData){
 														//name, label, type, formula
 							switch(cell.col){
 								case 1: 
-									indicator = {name:'', label:'', type:'', formula:''}; 
+									indicator = new IndicatorModel(); //{name:'', label:'', type:'', formula:''}; 
 									model[indicatorNumber].push(indicator);	
 									indicator.name = cell.value;						   
 									break;

@@ -1,0 +1,18 @@
+.subindicator{
+	display: table;
+	background: #ffffff;
+	width: 100%;
+	padding: 10px;
+	color: #000000;
+}
+
+label{
+	display: block;
+	width: 100%;
+	padding: 2px;
+}
+
+.type, .value{
+	display: inline-block;
+	width: 50%;
+}

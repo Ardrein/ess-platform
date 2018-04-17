@@ -22,39 +22,3 @@
 	display: table;
 }
 
-.nextStep{
-	display: inline-block;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: green;
-	width: 100%;
-	padding: 7px;
-	text-align: center;
-}
-
-.nextStep button{
-	margin-left: 1em;
-	margin-right: 1em;
-	padding: 2px 10px;
-	border-radius: 3px;
-	width: 7em;
-	height: 2em;
-	font-size: 14px;
-	font-weight: bold;
-	cursor: pointer;
-}
-.nextStep button:hover{
-	background: #a7acad;
-}
-
-.back{
-	background: #d00606;
-	color: white;
-}
-
-.next{
-	background: #005256;
-	color: white;
-}

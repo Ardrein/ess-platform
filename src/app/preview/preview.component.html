@@ -1,3 +1,20 @@
-<p>
-  preview works!
-</p>
+<div class="container">
+	<div *ngFor= "let indicator of model.getIndicators()" class="indicator">
+		<label class="name subtitle">INDICATOR: {{indicator.getName()}}</label>
+		<label class="type">Type: {{indicator.getType()}}</label>
+		<label class="value">Value: {{indicator.getCalculatedValue() | number:'1.0-3'}}</label>
+		<label class="formula">Formula: {{indicator.getFormula()}}</label>
+		<label class="description">Label: {{indicator.getLabel()}}</label>
+
+		<label class="subtitle">Subindicators</label>
+		<app-indicator-node *ngFor= "let indic of indicator.getSubindicators()" [indicator]="indic"></app-indicator-node>
+
+		<label class="subtitle">Variables</label>
+		<app-variable-node *ngFor= "let variable of indicator.getVariables()" [variable]="variable"></app-variable-node>
+		
+	</div>
+</div>
+<div class="nextStep">
+	<button class="back">Back</button>
+	<button class="next">Next</button>
+</div>

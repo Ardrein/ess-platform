@@ -23,7 +23,7 @@ export class SpreadsheetComponent implements OnInit {
   }
 
 //Envio del Id de la hoja de calculo a traves del servicio spreadsheets.service
-// y ejecucion d elos metodos callback al enviar la peticion http
+// y ejecucion de los metodos callback al enviar la peticion http
   sendId(){
   	this.spreadsheetService.sendSpreadsheetId(this.spreadsheetId).subscribe(
               data => {

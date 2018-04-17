@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 var spreadsheetLogic = require('../spreadsheet/spreadsheet');   //archivo con la logica para acceder al documento
 
 //Declaracion RUTAS------------------------------------------------------------------------

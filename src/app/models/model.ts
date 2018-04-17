@@ -17,4 +17,21 @@ export class Model{
 	getIndicators(){
 		return this.indicators;
 	}
+
+	buildWithObject(model){
+		this.indicators = [];
+		this.variables = [];
+		for(let variable of model.variables){
+			let newVariable = new Variable('','','','','');
+			newVariable.buildWithObject(variable);
+			this.variables.push(newVariable);
+		}
+
+		for(let indicator of model.indicators){
+			let newIndicator = new Indicator('','','','','');
+			newIndicator.buildWithObject(indicator);
+			this.indicators.push(newIndicator);
+
+		}
+	}
 }

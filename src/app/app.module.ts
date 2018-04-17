@@ -13,6 +13,10 @@ import { ModeloComponent } from './modelo/modelo.component';
 import { IndicatorTabComponent } from './indicator-tab/indicator-tab.component';
 import { PreviewComponent } from './preview/preview.component';
 import { PreviewModelService } from './preview-model.service';
+import { IndicatorNodeComponent } from './indicator-node/indicator-node.component';
+import { VariableNodeComponent } from './variable-node/variable-node.component';
+import { LoginComponent } from './login/login.component';
+import { AuthenticationService } from './authentication.service';
 
 
 
@@ -24,7 +28,10 @@ import { PreviewModelService } from './preview-model.service';
     VariablesComponent,
     ModeloComponent,
     IndicatorTabComponent,
-    PreviewComponent    
+    PreviewComponent,
+    IndicatorNodeComponent,
+    VariableNodeComponent,
+    LoginComponent    
   ],
   imports: [
     BrowserModule,
@@ -32,7 +39,7 @@ import { PreviewModelService } from './preview-model.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [SpreadsheetsService, PreviewModelService],
+  providers: [SpreadsheetsService, PreviewModelService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,49 @@
+.container{
+	display: table;
+	width: 100%;
+	padding: 2% 10%;
+
+}
+
+.indicator{
+	display: table;
+	background: #0a498c;
+	color: white;
+	width: 100%;
+	padding: 0 1px;
+	margin-bottom: 6%;
+    font-family: calibri;
+    box-shadow: 5px 7px 2px 0px #717171;
+    border-radius: 0 0 10px 10px;
+}
+
+label{
+	display: block;
+	width: 100%;
+	padding: 2% 2px 10px 3%;
+}
+
+.type, .value{
+	display: inline-block;
+	width: 50%;
+} 
+
+.formula, .description{
+	background: #ffffff;
+	color: #000000;
+}
+
+.subtitle{
+	background: #3174bb;
+	text-align: center;
+	border: solid 1px #0a498c;
+	padding: 5px;
+	font-size: 1.4em;
+	margin: 0 0 2% 0;
+}
+
+.name{
+	background: #177be4;
+	border: none;
+	margin: 0;
+}

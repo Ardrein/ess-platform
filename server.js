@@ -1,14 +1,12 @@
 //Dependencias
+var express = require('express');
+var path = require('path');
+var http = require('http');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
 
-const express = require('express');
-const path = require('path');
-const http = require('http');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-
-
-
-const app = express();
+//Creacion del servidor express
+var app = express();
 
 //registra cada peticion a la consola
 app.use(morgan('dev'));
@@ -17,13 +15,15 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 
-
-
 //Ruta hacia dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
 //API routes
-const api = require('./server/routes/api');
+var api = require('./server/routes/api');
+
+//Configuracion de la base de datos
+var mongoose = require('mongoose');
+var dbConfig = require('./server/config/db.config'); //conexión a la base de datos
 
 //rutas API
 app.use('/api', api);
@@ -35,11 +35,11 @@ app.get('*',(req,res) =>{
 
 
 //Captura del puerto del entorno y asignación en express
-const port = process.env.PORT || '3000';
+var port = process.env.PORT || '3000';
 app.set('port', port);
 
 //Creación del servidor http
-const server = http.createServer(app);
+var server = http.createServer(app);
 
 //Escucha en el puerto
 server.listen(port,() => console.log(`API corriendo en localhost:${port}`));

@@ -30,7 +30,7 @@ export class ModeloComponent implements OnInit {
 		private router: Router) { 
 		this.variables = this.spreadsheetService.getVariables();
 		this.indicatorsLists = this.spreadsheetService.getIndicatorsList();
-		this.indicatorsModel = _previewModelService.getModel();
+		this.indicatorsModel = this._previewModelService.getModel();
 	}
 
 	ngOnInit() {
@@ -55,8 +55,8 @@ private assignData(){
 
 	for(let i=0;i<this.variables.length ;i++){
 		let currentVar = this.variables[i];
-  		//name,label,type,value
-  		let varToAdd = new Variable(currentVar.name,currentVar.label,currentVar.type,currentVar.value); 
+  		//_id,name,label,type,value
+  		let varToAdd = new Variable(currentVar._id,currentVar.name,currentVar.label,currentVar.type,currentVar.value); 
 
   		this.vars.push(varToAdd);
   	}
@@ -65,13 +65,13 @@ private assignData(){
   		let currentList = this.indicatorsLists[i];
   		for(let j=0;j<currentList.length;j++){
   			let currentIndicator = currentList[j];
-  			//name,label,type,formula
-  			let indicatorToAdd = new Indicator(currentIndicator.name,currentIndicator.label,
+  			//_id,name,label,type,formula
+  			let indicatorToAdd = new Indicator(currentIndicator._id,currentIndicator.name,currentIndicator.label,
   				currentIndicator.type,currentIndicator.formula);
   			this.replaceVariables(indicatorToAdd, this.vars);
 
   			if(i >0){
-  				//insert Here way to replace subIndicators
+  				//reemplazo de subindicadores
   				this.replaceSubIndicators(indicatorToAdd, this.indicators);
   			}
 

@@ -9,6 +9,7 @@ export class Indicator{
 	private formulaValues: string; //formula con los nombres reemplazados por sus valores numericos respectivos
 
 	constructor(
+		private _id: string,     //identificador del indicador
 		private name: string,    //nombre del indicador
 		private label: string,	 //etiqueta del indicador
 		private valueType: string,  //tipo de dato
@@ -22,6 +23,10 @@ export class Indicator{
 	//funcion para obtener el valor de este indicador, en caso de que no se pueda evaluar retorna un error
 	getCalculatedValue(){
 		return eval(this.formulaValues) || 'error';			
+	}
+
+	getId(){
+		return this._id;
 	}
 
 	getName(){
@@ -62,5 +67,29 @@ export class Indicator{
 
 	setVariables(variables: Variable[]){
 		this.variables = variables;
+	}
+
+	buildWithObject(indicator){
+		this._id = indicator._id;
+		this.name = indicator.name;
+		this.label = indicator.label;
+		this.valueType = indicator.valueType;
+		this.formula = indicator.formula;
+		this.formulaValues = indicator.formulaValues;
+		this.variables = [];
+		this.subIndicators = [];
+
+		for(let vars of indicator.variables){
+			let newVariable = new Variable('','','','','');
+			newVariable.buildWithObject(vars);
+			this.variables.push(newVariable);
+		}
+
+
+		for(let indic of indicator.subIndicators){
+			let newIndicator = new Indicator('','','','','');
+			newIndicator.buildWithObject(indic);
+			this.subIndicators.push(newIndicator);
+		}
 	}
 }
