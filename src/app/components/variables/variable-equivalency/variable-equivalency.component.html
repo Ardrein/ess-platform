@@ -1,0 +1,24 @@
+<div class="col col-12" *ngIf="fields">
+	<form [formGroup]="form">
+		<formly-form [form]="form" [fields]="fields" [model]="model">
+		</formly-form>
+	</form>
+	<button class="btn btn-primary" [disabled]="!form.valid" (click)="addEquivalency()">Add Equivalency
+	</button>
+</div>
+<div class="row" *ngIf="model.equivalencies.length>0">
+	<div class="col-12"><h4>Equivalencies</h4></div>
+	<ng-container *ngFor="let equi of model.equivalencies; let i=index;">
+		<ul class="list-group col-12" >
+			<div class="row border alert">
+				<li class="list-group-item border col-5">{{ equi[0].name}}</li>
+				<li class="list-group-item border col-5">{{ equi[1].name}}</li>
+				<div class="col-2 text-center align-self-center">
+					<button class="btn btn-danger btn-sm" (click) = "removeEquivalency(i)">
+						<i class="fa fa-trash"></i>
+					</button>
+				</div>
+			</div>
+		</ul>
+	</ng-container>
+</div>	

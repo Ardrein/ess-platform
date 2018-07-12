@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('ess-platform App', () => {
+describe('ess-imanager App', () => {
   let page: AppPage;
 
   beforeEach(() => {

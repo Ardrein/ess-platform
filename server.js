@@ -1,45 +1,42 @@
-//Dependencias
-var express = require('express');
-var path = require('path');
-var http = require('http');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
+const express = require('express');
+const app = express();
 
-//Creacion del servidor express
-var app = express();
+const path = require('path');
+const http = require('http');
 
-//registra cada peticion a la consola
-app.use(morgan('dev'));
+const mongoose = require('mongoose');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
-//Parsers para la información de POST
+const mongoConnect = require('./server/config/database');
+
+
+// settings
+app.set('port',process.env.PORT || 3000);   //Checks if there is a port defined by the OS. If not, use port 3000.
+app.use(express.static(path.join(__dirname, 'dist'))); //Folder for static files / Angular creates the client in this folder.
+
+
+//middlewares
+app.use(morgan('dev'));  //Visualize http messages on console
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.urlencoded({extended: false}));  //Information from forms interpreted through URL./ extended>Only data
 
-//Ruta hacia dist
-app.use(express.static(path.join(__dirname, 'dist')));
+//routes
+app.use('/api',require('./server/routes/routes'));
 
-//API routes
-var api = require('./server/routes/api');
+//Error handling
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
-//Configuracion de la base de datos
-var mongoose = require('mongoose');
-var dbConfig = require('./server/config/db.config'); //conexión a la base de datos
-
-//rutas API
-app.use('/api', api);
-
-//Captura de todas las rutas y redireccionamiento al archivo index
+//Capture all routes and send them to index in dist(Angular2)
 app.get('*',(req,res) =>{
 	res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
+const server = http.createServer(app);
 
-//Captura del puerto del entorno y asignación en express
-var port = process.env.PORT || '3000';
-app.set('port', port);
-
-//Creación del servidor http
-var server = http.createServer(app);
-
-//Escucha en el puerto
-server.listen(port,() => console.log(`API corriendo en localhost:${port}`));
+app.listen(app.get('port'), () =>{
+	console.log('server on port', app.get('port'));
+});

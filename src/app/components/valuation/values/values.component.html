@@ -1,0 +1,15 @@
+<div class="col col-12" *ngIf="fields">
+	<form [formGroup]="form">
+		<formly-form [form]="form" [fields]="fields" [model]="model">
+		</formly-form>
+	</form>
+</div>
+<div class="col-12"><h4>Valuations</h4></div>
+<ng-container *ngIf="model.valuation">
+	<ul class="list-group col-12 text-dark" *ngFor="let valuation of _valuations[model.valuation].valuatedVariables; let i=index;">
+		<div class="row border alert">
+			<li class="list-group-item border col-6">{{ valuation.name}}</li>
+			<li class="list-group-item border col-6">{{ valuation.value}}</li>
+		</div>
+	</ul>
+</ng-container>

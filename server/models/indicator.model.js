@@ -1,17 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var IndicatorSchema = new Schema({
+var indicatorSchema = new Schema({
 	name: String,
 	label: String,
 	formula: String,
-	formulaValue: Number,
-	type: String,
-	subIndicators: [{
-		type: Schema.Types.ObjectId,
-		ref: 'Indicator',
-		default: []
-	}],
+	type: {	type: Schema.Types.ObjectId,ref: 'Type'},
 	variables: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Variable',
@@ -19,6 +13,4 @@ var IndicatorSchema = new Schema({
 	}]
 });
 
-var Indicator = mongoose.model('Indicator', IndicatorSchema);
-
-module.exports = Indicator;
+module.exports = indicatorSchema;

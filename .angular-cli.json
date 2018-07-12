@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "ess-platform"
+    "name": "ess-imanager"
   },
   "apps": [
     {
@@ -9,7 +9,10 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        "plugins",
+        "dist",
+        "bower_components"
       ],
       "index": "index.html",
       "main": "main.ts",

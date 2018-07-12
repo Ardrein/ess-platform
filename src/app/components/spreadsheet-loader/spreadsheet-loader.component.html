@@ -1,0 +1,5 @@
+<form [formGroup]="form" (ngSubmit)="loadSpreadsheet()">
+	<formly-form [form]="form" [fields]="fields" [model]="model">
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</formly-form>
+</form>

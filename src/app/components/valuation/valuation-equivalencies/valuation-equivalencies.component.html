@@ -1,0 +1,15 @@
+<div class="col col-12" *ngIf="fields">
+	<form [formGroup]="form">
+		<formly-form [form]="form" [fields]="fields" [model]="model">
+		</formly-form>
+	</form>
+</div>
+<div class="col-12"><h4>Equivalencies</h4></div>
+<ng-container *ngIf="model.equivalency">
+	<ul class="list-group col-12 text-dark" *ngFor="let equi of myEquivalencies[model.equivalency].equivalencies; let i=index;">
+		<div class="row border alert">
+			<li class="list-group-item border col-6">{{ equi.variableA.name}}</li>
+			<li class="list-group-item border col-6">{{ equi.variableB.name}}</li>
+		</div>
+	</ul>
+</ng-container>

@@ -1,0 +1,29 @@
+<div class="col-12 text-danger" *ngIf="options.length == 0">
+	<h4>There are no Public models available.</h4>
+</div>
+<ng-container  *ngIf="fields">
+	<form [formGroup]="form">
+		<formly-form [form]="form" [fields]="fields" [model]="model">
+		</formly-form>
+	</form>
+	<div class="col-12 m-2">
+		<button class="btn btn-primary" [disabled]="!form.valid" (click)="showEquivalencies()">Show Available Equivalencies</button>
+	</div>
+</ng-container>
+<div class="row" *ngIf="isEquivalencyChosen">
+	<div class="col-12 bg-dark text-white mt-5 p-3" >
+		<app-valuation-equivalencies [versionId]="model.version" #valEquivComponent></app-valuation-equivalencies>
+	</div>
+	<div class="col-12 m-2">
+		<button class="btn btn-primary" [disabled]="!model.version" (click)="showValuations()">
+		Show Available Valuations</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-12 bg-dark text-white mt-5 p-3" *ngIf="isValuationChosen">
+		<app-values [valuations]="valuations" #valuesComp></app-values>
+	</div>
+</div>
+<div class="col-12 m-2">
+	<button class="btn btn-primary" [disabled]="!form.valid" (click)="valuateModel()">Valuate</button>
+</div>

@@ -1,21 +1,25 @@
 import { NgModule } from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { SpreadsheetLoaderComponent } from './components/spreadsheet-loader/spreadsheet-loader.component';
 
-import {SpreadsheetComponent} from './spreadsheet/spreadsheet.component';
-import { ModeloComponent } from './modelo/modelo.component';
-import { PreviewComponent } from './preview/preview.component';
-import { LoginComponent } from './login/login.component';
-
-export const routes: Routes = [
+/**
+* Constant with the application routes and their respective components.
+*/
+const appRoutes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
-	{path: 'login', component: LoginComponent },
-	{path: 'home', component: SpreadsheetComponent},
-	{path: 'model', component: ModeloComponent},
-	{path: 'preview', component: PreviewComponent}
-]; 
+	{path: 'home', component: SpreadsheetLoaderComponent},
+	{path: 'concept', loadChildren: './modules/concept/concept.module#ConceptModule'},
+	{path: 'user', loadChildren: './modules/user/user.module#UserModule'},
+	{path: 'valuation', loadChildren: './modules/valuation/valuation.module#ValuationModule'},
+	{path: 'equivalency', loadChildren: './modules/equivalency/equivalency.module#EquivalencyModule'},
+	{ path: '**', redirectTo: '/home'}
+];
 
+/**
+* Module for managing the routes of the application.
+*/
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,0 +1,21 @@
+<mat-horizontal-stepper [linear] = "true" class="row">
+	<mat-step class="row">
+		<ng-template matStepLabel>Select Models</ng-template>
+		<div class="col col-12" *ngIf="fields">
+			<form [formGroup]="form">
+				<formly-form [form]="form" [fields]="fields" [model]="model">
+				</formly-form>
+			</form>
+		</div>
+		<div class ="row">
+			<button class="btn btn-primary" (click)="verifyModel()" >Verify</button>
+		</div>
+	</mat-step>
+	<mat-step class="row" *ngIf="isModelCorrect">
+		<ng-template matStepLabel>Model Variables</ng-template>
+		<app-variable-equivalency [modelVariables]="modelVariables" #equivalencies></app-variable-equivalency>
+		<div class="col-12">
+			<button class="btn btn-primary" (click)="submit()">Submit</button>
+		</div>
+	</mat-step>
+</mat-horizontal-stepper>

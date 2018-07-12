@@ -1,0 +1,18 @@
+<mat-tab-group>
+	<mat-tab label="My Conceptual Models">
+		<div class="container" *ngIf="myModels">
+			<app-concepts [myModels]="myModels"></app-concepts>
+		</div>
+	</mat-tab>
+	<mat-tab label="My Valuated Models"> 
+		<div class="container" *ngIf="myValuations">
+			<app-valuations [myModels]="myValuations"></app-valuations>
+		</div>
+	</mat-tab>
+	<mat-tab label="My Model Equivalencies"> 
+		<div class="container" *ngIf="myEquivalencies">
+			<app-equivalencies [myModels]="myEquivalencies"></app-equivalencies>
+		</div>
+	</mat-tab>
+</mat-tab-group>
+

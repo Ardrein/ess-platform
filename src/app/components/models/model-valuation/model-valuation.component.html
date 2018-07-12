@@ -1,0 +1,38 @@
+<mat-horizontal-stepper [linear] = "true" #stepper>
+	<mat-step [completed] = "isModelCorrect">
+		<ng-template matStepLabel>Variables to Valuate</ng-template>
+		<ng-container *ngIf="variables">	
+			<app-variable-form [variableInput]="variables" #varForm></app-variable-form>
+
+			<div class="row">
+				<div class="col-md-12">
+					<button class="btn btn-primary" matStepperNext>Next</button>
+					<button class="btn btn-primary" type="button" (click)="verifyModel()">Validate</button>
+				</div>
+			</div>
+		</ng-container>
+	</mat-step>
+	<mat-step *ngIf="isPreviewReady">
+		<ng-template matStepLabel>Model Preview</ng-template>
+		<app-indicator-view [modelInput]="modelValuation"></app-indicator-view>
+		<button class="btn btn-primary" matStepperPrevious>Back</button>
+	</mat-step>
+	<mat-step *ngIf="isModelCorrect">
+		<ng-template matStepLabel>Save Model</ng-template>
+		<div class="row">
+			<form [formGroup]="form">
+				<formly-form [form]="form" [fields]="fields" [model]="model">
+				</formly-form>
+			</form>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<button class="btn btn-primary" matStepperPrevious>Back</button>
+				<button class="btn btn-primary" type="button" [disabled]="!form.valid"
+				(click)="submitModel()">
+				Submit</button>
+
+			</div>
+		</div>
+	</mat-step>
+</mat-horizontal-stepper>

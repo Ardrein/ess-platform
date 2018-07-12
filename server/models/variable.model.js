@@ -1,13 +1,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var VariableSchema = new mongoose.Schema({
+var variableSchema = new mongoose.Schema({
 	name: String,
 	label: String,
-	value: Number,
-	type: String
+	type: {	type: Schema.Types.ObjectId,ref: 'Type'}
 });
 
-var Variable = mongoose.model('Variable', VariableSchema);
-
-module.exports = Variable;
+module.exports = variableSchema;

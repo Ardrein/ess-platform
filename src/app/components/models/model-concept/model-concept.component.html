@@ -1,0 +1,48 @@
+<mat-horizontal-stepper [linear] = "true" #stepper>
+	<mat-step [completed] = "true" class="row">
+		<ng-template matStepLabel>Model Variables</ng-template>
+		<app-variable-concept [variablesInput]="variablesInput" 
+		(variablesModel)="submitVariableModel($event)" 
+		#variables>
+	</app-variable-concept>
+	<div class="row">
+		<div class="col-md-12">
+			<button class="btn btn-primary" matStepperNext>Next</button>
+		</div>
+	</div>
+</mat-step>
+<mat-step [completed] = "isModelCorrect">
+	<ng-template matStepLabel>Model Indicators</ng-template>
+	<app-indicator-concept [indicatorsInput]="indicatorsInput" 
+	(indicatorsModel)="submitIndicatorModel($event)" 
+	#indicators>
+</app-indicator-concept>
+<div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-primary" matStepperPrevious>Back</button>
+		<button class="btn btn-primary" 
+		[disabled] = "!isModelCorrect" matStepperNext>Next</button>
+		<button class="btn btn-primary" type="submit"
+		[disabled] = "!variables.isFormValid() || !indicators.isFormValid()"
+		(click)="verifyModel()">Verify</button>
+	</div>
+</div>
+</mat-step>
+<mat-step *ngIf="isModelCorrect">
+	<ng-template matStepLabel>Save Model</ng-template>
+	<div class="row">
+		<form [formGroup]="form">
+			<formly-form [form]="form" [fields]="fields" [model]="model">
+			</formly-form>
+		</form>
+	</div>
+	<div class="col-md-12" *ngIf= "isModelCorrect">
+		<ngx-json-viewer [json]="conceptualModel" [expanded]="false"></ngx-json-viewer>
+	</div>
+	<div class="w-100">
+		<button class="btn btn-primary" matStepperPrevious>Back</button>
+		<button class="btn btn-primary" type="submit" 
+		(click) = "submitModel()" [disabled] ="!form.valid">Submit</button>
+	</div>
+</mat-step>
+</mat-horizontal-stepper>

@@ -1,45 +1,71 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
-
-import { AppComponent } from './app.component';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
-import { SpreadsheetsService } from './spreadsheets.service';
-import { IndicatorsComponent } from './indicators/indicators.component';
-import { VariablesComponent } from './variables/variables.component';
-import { ModeloComponent } from './modelo/modelo.component';
-import { IndicatorTabComponent } from './indicator-tab/indicator-tab.component';
-import { PreviewComponent } from './preview/preview.component';
-import { PreviewModelService } from './preview-model.service';
-import { IndicatorNodeComponent } from './indicator-node/indicator-node.component';
-import { VariableNodeComponent } from './variable-node/variable-node.component';
-import { LoginComponent } from './login/login.component';
-import { AuthenticationService } from './authentication.service';
+import { MatDialogModule } from '@angular/material/dialog';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//=============================Modules=========================================================
+import { CustomFormlyModule } from './modules/_custom-formly/custom-formly.module';
+
+//==============================Components=======================================================
+import { AppComponent } from './app.component';
+
+//AdminLte
+import { AppfooterComponent, AppheaderComponent, AppmenuComponent, AppsettingsComponent } from './components/adminLte/index';
+
+//spreadsheet
+import { SpreadsheetLoaderComponent } from './components/spreadsheet-loader/spreadsheet-loader.component';
+
+//helpers
+import { RepeatTypeComponent } from './components/_helperForms/index';
+
+//==============================Services=======================================================
+import { SpreadsheetService, AlertService, TypeService, ModelService, MathService, ValuationService } from './_services/index';
+
+//==============================Directives=====================================================
+import { AlertComponent, ConfirmationDialog } from './_directives/index';
+
+//==============================Helpers========================================================
+import { ErrorInterceptorProvider } from './_helpers/index';
 
 
 
+
+/**
+* Main module of the application
+*/
 @NgModule({
   declarations: [
     AppComponent,
-    SpreadsheetComponent,
-    IndicatorsComponent,
-    VariablesComponent,
-    ModeloComponent,
-    IndicatorTabComponent,
-    PreviewComponent,
-    IndicatorNodeComponent,
-    VariableNodeComponent,
-    LoginComponent    
+    AppfooterComponent,
+    AppheaderComponent,
+    AppmenuComponent,
+    AppsettingsComponent,
+    SpreadsheetLoaderComponent,
+    AlertComponent,
+    ConfirmationDialog,
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
     HttpModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    CustomFormlyModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
-  providers: [SpreadsheetsService, PreviewModelService, AuthenticationService],
+  entryComponents: [ConfirmationDialog]
+  ,
+  providers: [
+    AlertService,
+    SpreadsheetService,
+    TypeService,
+    ModelService,
+    MathService,
+    ValuationService,
+    ErrorInterceptorProvider    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

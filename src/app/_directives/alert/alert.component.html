@@ -1,0 +1,12 @@
+<div *ngIf="message" 
+[ngClass]="{'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error', 'alert-warning': message.type === 'warning'}">
+	{{message.text}}
+
+	<div *ngIf="message.isList">
+		<ul>
+			<li *ngFor="let m of message.list">
+				{{m}}
+			</li>	
+		</ul>
+	</div>
+</div>
